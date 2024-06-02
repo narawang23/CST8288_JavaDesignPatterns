@@ -1,7 +1,5 @@
 package com.algonquin.cst8288.assignment1.controller;
-
 import java.io.IOException;
-
 import com.algonquin.cst8288.assignment1.employee.Employee;
 import com.algonquin.cst8288.assignment1.persistence.JSONFormatter;
 
@@ -9,13 +7,14 @@ import com.algonquin.cst8288.assignment1.persistence.JSONFormatter;
  * Process, validate and save employee data.
  */
 public class EmployeeController {
-
+    private final EmployeeProcessor employeeProcessor;
     private final EmployeeValidator validator;
-    private final EmployeeSave storage;
+    private final EmployeeSaver storage;
 
-    public EmployeeController() {
-        this.validator = new EmployeeValidator();
-        this.storage = new EmployeeSave(new JSONFormatter());
+    public EmployeeController(EmployeeProcessor employeeProcessor, EmployeeValidator validator, EmployeeSaver storage) {
+        this.employeeProcessor = employeeProcessor;
+        this.validator = validator;
+        this.storage = storage;
     }
 
     /**
@@ -26,14 +25,9 @@ public class EmployeeController {
      *         "FAILED" if the validation fails
      * @throws IOException if an I/O error occurs during the storage process
      */
-    public String processEmployee(Employee employee) throws IOException {
+    public String handleEmployee(Employee employee) throws IOException {
         // Process data (e.g., Calculate bonus, total compensation, etc.)
-
-
-
-
-
-
+        employeeProcessor.processEmployee(employee);
 
         // Validate data
         if (!validator.isValidEmployee(employee)) {

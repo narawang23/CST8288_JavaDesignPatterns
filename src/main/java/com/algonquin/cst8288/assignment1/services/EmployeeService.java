@@ -12,6 +12,5 @@ import com.algonquin.cst8288.assignment1.employee.Employee;
 
 public interface EmployeeService {
 	public double totalCompensation(Employee employee);
-	public double pensionContribute(Employee employee);
 
 }

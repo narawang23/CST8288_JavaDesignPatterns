@@ -8,8 +8,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class EmployeeSave {
-    public EmployeeSave(JSONFormatter jsonFormatter) {
+public class EmployeeSaver {
+    private Formatter formatter;
+
+    public EmployeeSaver(Formatter formatter) {
+        this.formatter = formatter;
     }
 
     /**
@@ -19,7 +22,6 @@ public class EmployeeSave {
      * @throws IOException
      */
     public void saveEmployee(Employee person, String filename) throws IOException {
-        Formatter formatter = new JSONFormatter();
         try (PrintWriter writer = new PrintWriter(new FileWriter(filename))) {
             writer.println(formatter.format(person));
             writer.flush();
