@@ -10,12 +10,12 @@ public class ContractEmployeeImpl extends Employee implements CalContractE {
     }
 
     @Override
-    public double totalCompensation(int salary, double bonus) {
-        return salary;
+    public double totalCompensation(Employee employee) {
+        return getSalary();
     }
 
     @Override
-    public double pensionContribute(int salary) {
+    public double pensionContribute(Employee employee) {
         return getSalary() * Rate.PENSION_PERCENTAGE;
     }
 }
