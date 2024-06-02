@@ -1,6 +1,7 @@
 package com.algonquin.cst8288.assignment1.controller;
+import com.algonquin.cst8288.assignment1.employee.ContractEmployeeImpl;
 import com.algonquin.cst8288.assignment1.employee.Employee;
-import com.algonquin.cst8288.assignment1.services.*;
+import com.algonquin.cst8288.assignment1.employee.PermanentEmployeeImpl;
 
 import java.time.LocalDate;
 

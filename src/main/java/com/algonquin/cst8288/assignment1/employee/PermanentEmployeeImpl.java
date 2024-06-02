@@ -1,7 +1,8 @@
-package com.algonquin.cst8288.assignment1.services;
-import com.algonquin.cst8288.assignment1.employee.Employee;
+package com.algonquin.cst8288.assignment1.employee;
+import com.algonquin.cst8288.assignment1.services.PermanentEmployeeService;
+import com.algonquin.cst8288.assignment1.services.Rate;
 
-public class PermanentEmployeeImpl extends Employee implements CalPermanentE{
+public class PermanentEmployeeImpl extends Employee implements PermanentEmployeeService {
 
 //    private Employee employee;
 
