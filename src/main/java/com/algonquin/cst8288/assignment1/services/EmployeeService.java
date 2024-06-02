@@ -1,8 +1,6 @@
 package com.algonquin.cst8288.assignment1.services;
-
-import com.algonquin.cst8288.assignment1.employee.Employee;
-
-import java.util.Date;
+//import com.algonquin.cst8288.assignment1.employee.Employee;
+//import java.util.Date;
 
 /**
  * 
@@ -11,6 +9,7 @@ import java.util.Date;
  */
 
 public interface EmployeeService {
-	public double CalTotal(int salary, double bonus);
+	public double totalCompensation(int salary, double bonus);
+	public double pensionContribute(int salary);
 
 }

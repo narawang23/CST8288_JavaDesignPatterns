@@ -1,9 +1,9 @@
 package com.algonquin.cst8288.assignment1.services;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public interface CalContractE extends EmployeeService {
 
-    public Date renewalDate();
+    public LocalDate renewalDate();
 
 }
