@@ -8,8 +8,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class PersistenceService {
-    public PersistenceService(JSONFormatter jsonFormatter) {
+public class EmployeeSave {
+    public EmployeeSave(JSONFormatter jsonFormatter) {
     }
 
     /**

@@ -11,11 +11,11 @@ import com.algonquin.cst8288.assignment1.persistence.JSONFormatter;
 public class EmployeeController {
 
     private final EmployeeValidator validator;
-    private final PersistenceService storage;
+    private final EmployeeSave storage;
 
     public EmployeeController() {
         this.validator = new EmployeeValidator();
-        this.storage = new PersistenceService(new JSONFormatter());
+        this.storage = new EmployeeSave(new JSONFormatter());
     }
 
     /**
@@ -28,7 +28,12 @@ public class EmployeeController {
      */
     public String processEmployee(Employee employee) throws IOException {
         // Process data (e.g., Calculate bonus, total compensation, etc.)
-        // Currently, this part is not implemented.
+
+
+
+
+
+
 
         // Validate data
         if (!validator.isValidEmployee(employee)) {

@@ -11,13 +11,6 @@ import java.util.Date;
  */
 
 public interface EmployeeService {
+	public double CalTotal(int salary, double bonus);
 
-	public double calculateTotalCompensation(Employee PermanentEmployees);
-	
-	public double pensionContribution(Employee employee);
-	
-	public double calculateBonus(Employee employee);
-	
-	public Date renewalDate();
-	
 }

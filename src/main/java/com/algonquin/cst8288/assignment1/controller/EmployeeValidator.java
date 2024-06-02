@@ -33,12 +33,8 @@ public class EmployeeValidator {
 				return false;
 			}
 
-			if (!isNoServiceYear(employee.getNumberOfServiceYear())) {
-				return false;
-			}
-
-			return true;
-		}
+            return isNoServiceYear(employee.getNumberOfServiceYear());
+        }
 
 
 		/**
@@ -81,8 +77,8 @@ public class EmployeeValidator {
 		 * @param salary
 		 * @return
 		 */
-		private boolean isNoSalary ( double salary){
-			return salary <= 0 ? false : true;
+		private boolean isNoSalary (double salary){
+			return !(salary <= 0);
 		}
 
 		/**
@@ -91,8 +87,8 @@ public class EmployeeValidator {
 		 * @param compensation
 		 * @return
 		 */
-		private boolean isNoCompensation ( double compensation){
-			return compensation <= 0 ? false : true;
+		private boolean isNoCompensation (double compensation){
+			return !(compensation <= 0);
 		}
 
 		/**
@@ -102,6 +98,6 @@ public class EmployeeValidator {
 		 * @return
 		 */
 		private boolean isNoServiceYear ( int serviceYear){
-			return serviceYear <= 0 ? false : true;
+			return serviceYear > 0;
 		}
 	}
