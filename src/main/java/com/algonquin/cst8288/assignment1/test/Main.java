@@ -1,7 +1,7 @@
-package com.algonquin.cst8288.assignment1;
+package com.algonquin.cst8288.assignment1.test;
 import com.algonquin.cst8288.assignment1.employee.*;
 import com.algonquin.cst8288.assignment1.controller.*;
-import com.algonquin.cst8288.assignment1.persistence.*;
+
 import java.io.IOException;
 import java.time.LocalDate;
 
@@ -34,14 +34,14 @@ public class Main {
 		Employee contractEmployee = new ContractEmployeeImpl(
 				"Jane Smith",
 				"jane.smith@example.com",
-				"456 Example Rd, Example City",
+				"456 Woodroffe Rd, Ottawa City",
 				60000,
 				LocalDate.now().plusYears(1) // Renewal date, 1 year from today
 		);
 
 
 		// Instantiate EmployeeController
-		EmployeeController employeeController = new EmployeeController(new EmployeeProcessor(), new EmployeeValidator(), new EmployeeSaver());
+		EmployeeController employeeController = new EmployeeController(new EmployeeProcessor(), new EmployeeValidator(), new PersistenceService());
 
 		// Utilize EmployeeController.java to save both objects in JSON and Text formats
 		employeeController.handleEmployee(permanentEmployee, "json_employee_data.txt");

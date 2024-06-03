@@ -8,9 +8,9 @@ import com.algonquin.cst8288.assignment1.employee.Employee;
 public class EmployeeController {
     private final EmployeeProcessor employeeProcessor;
     private final EmployeeValidator validator;
-    private final EmployeeSaver storage;
+    private final PersistenceService storage;
 
-    public EmployeeController(EmployeeProcessor employeeProcessor, EmployeeValidator validator, EmployeeSaver storage) {
+    public EmployeeController(EmployeeProcessor employeeProcessor, EmployeeValidator validator, PersistenceService storage) {
         this.employeeProcessor = employeeProcessor;
         this.validator = validator;
         this.storage = storage;

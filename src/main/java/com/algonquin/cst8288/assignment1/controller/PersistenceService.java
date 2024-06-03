@@ -7,13 +7,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class EmployeeSaver {
+public class PersistenceService {
     private Formatter formatter;
 
-    public EmployeeSaver() {
+    public PersistenceService() {
     }
 
-    public EmployeeSaver(Formatter formatter) {
+    public PersistenceService(Formatter formatter) {
         this.formatter = formatter;
     }
 
