@@ -24,7 +24,7 @@ public class PermanentEmployeeImpl extends Employee implements PermanentEmployee
     //    Total compensation is calculated as salary + bonus
     @Override
     public double totalCompensation(Employee employee) {
-        return getSalary() + getBonus();
+        return employee.getSalary() + employee.getBonus();
     }
 
 //    Pension contribution is 1% of base salary.

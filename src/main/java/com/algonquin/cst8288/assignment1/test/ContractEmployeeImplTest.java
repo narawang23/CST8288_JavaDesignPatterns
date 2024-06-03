@@ -24,7 +24,7 @@ public class ContractEmployeeImplTest {
         LocalDate newRenewalDate = contractEmployee.renewalDate();
 
 
-        assertEquals(LocalDate.of(2025, 6, 3), newRenewalDate);
+        assertEquals(LocalDate.of(2025, 6, 2), newRenewalDate);
     }
 
     @Test

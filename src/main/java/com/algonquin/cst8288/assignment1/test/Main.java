@@ -35,10 +35,11 @@ public class Main {
 				"Jane Smith",
 				"jane.smith@example.com",
 				"456 Woodroffe Rd, Ottawa City",
-				60000,
+				60000.0,
 				LocalDate.now().plusYears(1) // Renewal date, 1 year from today
 		);
 
+		contractEmployee.setTotalCompensation(contractEmployee.getSalary());
 
 		// Instantiate EmployeeController
 		EmployeeController employeeController = new EmployeeController(new EmployeeProcessor(), new EmployeeValidator(), new PersistenceService());

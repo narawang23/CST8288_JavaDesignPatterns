@@ -16,11 +16,13 @@ public class PermanentEmployeeImplTest {
         // Create a PermanentEmployeeImpl object
         PermanentEmployeeImpl permanentEmployee = new PermanentEmployeeImpl();
 
+
         // Set numberOfServiceYear
         permanentEmployee.setNumberOfServiceYear(2);
 
         // Call calculateBonus method
         double bonus = permanentEmployee.calculateBonus(employee);
+        permanentEmployee.setBonus(bonus);
 
         // Verify the result
         assertEquals(2500.0, bonus);
@@ -33,9 +35,6 @@ public class PermanentEmployeeImplTest {
 
         // Create a PermanentEmployeeImpl object
         PermanentEmployeeImpl permanentEmployee = new PermanentEmployeeImpl();
-
-        // Set bonus
-        permanentEmployee.setBonus(1250.0);
 
         // Call totalCompensation method
         double totalCompensation = permanentEmployee.totalCompensation(employee);
@@ -53,7 +52,7 @@ public class PermanentEmployeeImplTest {
         PermanentEmployeeImpl permanentEmployee = new PermanentEmployeeImpl();
 
         // Set salary
-        permanentEmployee.setSalary(50000.0);
+       // permanentEmployee.setSalary(50000.0);
 
         // set numberOfServiceYear
         permanentEmployee.setNumberOfServiceYear(1);

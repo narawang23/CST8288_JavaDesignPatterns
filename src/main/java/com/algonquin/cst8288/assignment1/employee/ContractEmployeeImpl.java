@@ -20,7 +20,7 @@ public class ContractEmployeeImpl extends Employee implements ContractEmployeeSe
 
     @Override
     public double totalCompensation(Employee employee) {
-        return getSalary();
+        return employee.getSalary();
     }
 
     @Override
@@ -30,7 +30,8 @@ public class ContractEmployeeImpl extends Employee implements ContractEmployeeSe
                 ", email=" + getEmail() + '\'' +
                 ", address=" + getAddress() + '\'' +
                 ", salary=" + getSalary() +
-                ", renewalDate=" + getRenewalDate()
+                ", renewalDate=" + getRenewalDate() +
+                ", totalCompensation=" + getTotalCompensation()
                 ;
     }
 }
