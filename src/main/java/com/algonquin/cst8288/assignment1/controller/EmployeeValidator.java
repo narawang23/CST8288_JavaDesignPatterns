@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 public class EmployeeValidator {
 
-		public boolean isValidEmployee(Employee employee){
+		public boolean isValidEmployee(Employee employee) {
 			if (!isPresent(employee.getName())) {
 				return false;
 			}
@@ -29,11 +29,18 @@ public class EmployeeValidator {
 				return false;
 			}
 
-			if (!isNoCompensation(employee.getTotalCompensation())) {
-				return false;
-			}
+			if (employee instanceof PermanentEmployeeImpl) {
+				PermanentEmployeeImpl permanentEmployee = (PermanentEmployeeImpl) employee;
 
-            return isNoServiceYear(employee.getNumberOfServiceYear());
+				if (!isNoCompensation(permanentEmployee.getTotalCompensation())) {
+					return false;
+				}
+
+				if (!isNoServiceYear(permanentEmployee.getNumberOfServiceYear())) {
+					return false;
+				}
+			}
+            return false;
         }
 
 

@@ -1,5 +1,8 @@
 package com.algonquin.cst8288.assignment1.employee;
 
+import com.algonquin.cst8288.assignment1.services.Rate;
+
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Employee {
@@ -11,10 +14,35 @@ public class Employee {
 	private int numberOfServiceYear;
 	private double bonus;
 	private double totalCompensation;
-	private Date renewalDate;
+	private LocalDate renewalDate;
 
 	public Employee() {
 		// Default constructor
+	}
+
+	public Employee(String name, String email, String address, double salary) {
+		this.name = name;
+		this.email = email;
+		this.address = address;
+		this.salary = salary;
+	}
+
+	public Employee(String name, String email, String address, double salary, LocalDate renewalDate) {
+		this.name = name;
+		this.email = email;
+		this.address = address;
+		this.salary = salary;
+		this.renewalDate = renewalDate;
+	}
+
+	public Employee(String name, String email, String address, double salary, int numberOfServiceYear, double bonus, double totalCompensation) {
+		this.name = name;
+		this.email = email;
+		this.address = address;
+		this.salary = salary;
+		this.numberOfServiceYear = numberOfServiceYear;
+		this.bonus = bonus;
+		this.totalCompensation = totalCompensation;
 	}
 
 	public String getName() {
@@ -71,21 +99,19 @@ public class Employee {
 
 	public void setTotalCompensation(double totalCompensation) {
 		this.totalCompensation = totalCompensation;
-	}
+    }
 
-	public Date getRenewalDate() {
+	public LocalDate getRenewalDate() {
 		return renewalDate;
 	}
 
-	public void setRenewalDate(Date renewalDate) {
+	public void setRenewalDate(LocalDate renewalDate) {
 		this.renewalDate = renewalDate;
 	}
 
-//	@Override
-//	public String toString() {
-//		return "Employee [name=" + name + ", email=" + email + ", address=" + address + ", salary=" + salary
-//				+ ", numberOfServiceYear=" + numberOfServiceYear + ", bonus=" + bonus + ", totalCompensation="
-//				+ totalCompensation + ", renewalDate=" + renewalDate + "]";
-//	}
+	@Override
+	public String toString() {
+		return null;
+	}
 
 }
