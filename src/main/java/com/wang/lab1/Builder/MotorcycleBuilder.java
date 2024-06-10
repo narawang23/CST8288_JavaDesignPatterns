@@ -1,6 +1,8 @@
-package Builder;
+package com.wang.lab1.Builder;
 
-import Beans.Vehicle;
+import com.wang.lab1.Beans.Car;
+import com.wang.lab1.Beans.Motorcycle;
+import com.wang.lab1.Beans.Vehicle;
 
 public class MotorcycleBuilder implements VehicleBuilder {
     private String make;

@@ -1,0 +1,13 @@
+/Users/wangyanan/IdeaJavaProjects/CST8288Lab1/src/main/java/com/wang/lab1/test/VehicleManagerTest.java
+/Users/wangyanan/IdeaJavaProjects/CST8288Lab1/src/main/java/com/wang/lab1/Main.java
+/Users/wangyanan/IdeaJavaProjects/CST8288Lab1/src/main/java/com/wang/lab1/Factory/VehicleFactory.java
+/Users/wangyanan/IdeaJavaProjects/CST8288Lab1/src/main/java/com/wang/lab1/test/VehicleFactoryTest.java
+/Users/wangyanan/IdeaJavaProjects/CST8288Lab1/src/main/java/com/wang/lab1/Builder/MotorcycleBuilder.java
+/Users/wangyanan/IdeaJavaProjects/CST8288Lab1/src/main/java/com/wang/lab1/test/VehicleDirectorTest.java
+/Users/wangyanan/IdeaJavaProjects/CST8288Lab1/src/main/java/com/wang/lab1/Builder/CarBuilder.java
+/Users/wangyanan/IdeaJavaProjects/CST8288Lab1/src/main/java/com/wang/lab1/Beans/Vehicle.java
+/Users/wangyanan/IdeaJavaProjects/CST8288Lab1/src/main/java/com/wang/lab1/Beans/Car.java
+/Users/wangyanan/IdeaJavaProjects/CST8288Lab1/src/main/java/com/wang/lab1/Singleton/VehicleManager.java
+/Users/wangyanan/IdeaJavaProjects/CST8288Lab1/src/main/java/com/wang/lab1/Beans/Motorcycle.java
+/Users/wangyanan/IdeaJavaProjects/CST8288Lab1/src/main/java/com/wang/lab1/Builder/VehicleDirector.java
+/Users/wangyanan/IdeaJavaProjects/CST8288Lab1/src/main/java/com/wang/lab1/Builder/VehicleBuilder.java

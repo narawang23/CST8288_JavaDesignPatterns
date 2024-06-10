@@ -1,7 +1,12 @@
-import Beans.Vehicle;
-import Builder.CarBuilder;
-import Builder.MotorcycleBuilder;
-import Builder.VehicleBuilder;
+package com.wang.lab1;
+
+import com.wang.lab1.Beans.Vehicle;
+import com.wang.lab1.Builder.CarBuilder;
+import com.wang.lab1.Builder.MotorcycleBuilder;
+import com.wang.lab1.Builder.VehicleBuilder;
+import com.wang.lab1.Builder.VehicleDirector;
+import com.wang.lab1.Factory.VehicleFactory;
+import com.wang.lab1.Singleton.VehicleManager;
 
 public class Main {
     public static void main(String[] args) {
@@ -32,9 +37,8 @@ public class Main {
 
         // List all vehicles
         for (Vehicle v : vehicleManager.getVehicles()) {
-            System.out.println(v);
-            v.start();
-            v.stop();
+            System.out.println(v.toString());
+
         }
     }
 }

@@ -1,4 +1,4 @@
-package Beans;
+package com.wang.lab1.Beans;
 
 public abstract class Vehicle {
     private String make;
@@ -38,4 +38,13 @@ public abstract class Vehicle {
     public  abstract void start();
     public  abstract void stop();
 
+
+    @Override
+    public String toString() {
+        return "Vehicle:" +
+                "make=" + make + ' ' +
+                ", model=" + model + ' ' +
+                ", year=" + year;
+    }
 }
+

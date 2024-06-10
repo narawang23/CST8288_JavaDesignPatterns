@@ -1,5 +1,8 @@
-import Beans.Car;
-import Beans.Vehicle;
+package com.wang.lab1.Factory;
+
+import com.wang.lab1.Beans.Car;
+import com.wang.lab1.Beans.Motorcycle;
+import com.wang.lab1.Beans.Vehicle;
 
 public class VehicleFactory {
     public static Vehicle createVehicle(String type, String make, String model, int year) {

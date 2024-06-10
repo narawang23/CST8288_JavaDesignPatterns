@@ -1,4 +1,6 @@
-import Beans.Vehicle;
+package com.wang.lab1.Singleton;
+
+import com.wang.lab1.Beans.Vehicle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,4 +29,5 @@ public class VehicleManager {
     public void addVehicle(Vehicle vehicle) {
         vehicles.add(vehicle);
     }
+
 }

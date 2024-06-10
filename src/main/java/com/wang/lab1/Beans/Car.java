@@ -1,4 +1,4 @@
-package Beans;
+package com.wang.lab1.Beans;
 
 public class Car extends Vehicle {
     public Car(String make, String model, int year) {

@@ -1,6 +1,6 @@
-package Builder;
+package com.wang.lab1.Builder;
 
-import Beans.Vehicle;
+import com.wang.lab1.Beans.Vehicle;
 
 public interface VehicleBuilder {
     VehicleBuilder setMake(String make);

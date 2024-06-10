@@ -1,5 +1,8 @@
-package Test;
+package com.wang.lab1.test;
 
+import com.wang.lab1.Beans.Car;
+import com.wang.lab1.Beans.Vehicle;
+import com.wang.lab1.Singleton.VehicleManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
