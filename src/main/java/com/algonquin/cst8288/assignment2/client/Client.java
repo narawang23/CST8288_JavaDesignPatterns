@@ -16,5 +16,7 @@ public class Client {
 		academic_library.createEvent(WORKSHOP);
 		academic_library.createEvent(BOOK_LAUNCH);
 
+
+
 	}
 }

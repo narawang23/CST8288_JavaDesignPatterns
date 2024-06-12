@@ -7,4 +7,5 @@ public class MovieNight extends Event {
     public void calculateAdmissionFee() {
         this.admissionFees = Constants.MOVIE_NIGHT_RATE * Constants.MOVIE_NIGHT_DURATION;
     }
+
 }

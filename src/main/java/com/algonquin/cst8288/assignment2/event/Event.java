@@ -53,7 +53,6 @@ public abstract class Event {
 		this.eventActivities = eventActivities;
 	}
 
-
 	/**
 	 * @return the admissionFees
 	 */
@@ -72,6 +71,13 @@ public abstract class Event {
 
 	// Every library as it own admission fee
 	public abstract void calculateAdmissionFee();
-    
-    
+
+	@Override
+	public String toString() {
+		return "Event " +
+				"eventName: " + eventName  +
+				", eventDescription: " + eventDescription  +
+				", eventActivities=" + eventActivities  +
+				", admissionFees=" + admissionFees;
+	}
 }
