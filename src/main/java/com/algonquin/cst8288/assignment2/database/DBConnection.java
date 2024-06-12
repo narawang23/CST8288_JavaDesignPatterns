@@ -8,7 +8,6 @@ public class DBConnection {
 	private static DBConnection instance = null;
 	private static Connection connection = null;
 
-
 	private String serverUrl = "jdbc:mysql://localhost:3306/bookvault";
 	private String userString = "root";
 	private String passwordString = "vistopia";

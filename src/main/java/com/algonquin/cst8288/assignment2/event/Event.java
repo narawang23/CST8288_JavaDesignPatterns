@@ -18,14 +18,12 @@ public abstract class Event {
 		return eventName;
 	}
 
-
 	/**
 	 * @param eventName the eventName to set
 	 */
 	public void setEventName(String eventName) {
 		this.eventName = eventName;
 	}
-
 
 	/**
 	 * @return the eventDescription
@@ -41,8 +39,6 @@ public abstract class Event {
 		this.eventDescription = eventDescription;
 	}
 
-
-
 	/**
 	 * @return the eventActivities
 	 */
@@ -56,7 +52,6 @@ public abstract class Event {
 	public void setEventActivities(String eventActivities) {
 		this.eventActivities = eventActivities;
 	}
-
 
 
 	/**
