@@ -10,15 +10,13 @@ public abstract class Event {
     public Event() {
 
     }
-    
- 
+
 	/**
 	 * @return the eventName
 	 */
 	public String getEventName() {
 		return eventName;
 	}
-
 
 
 	/**
@@ -36,7 +34,6 @@ public abstract class Event {
 		return eventDescription;
 	}
 
-
 	/**
 	 * @param eventDescription the eventDescription to set
 	 */
@@ -52,10 +49,6 @@ public abstract class Event {
 	public String getEventActivities() {
 		return eventActivities;
 	}
-
-
-
-
 
 	/**
 	 * @param eventActivities the eventActivities to set
