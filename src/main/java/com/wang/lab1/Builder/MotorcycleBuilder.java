@@ -1,6 +1,5 @@
 package com.wang.lab1.Builder;
 
-import com.wang.lab1.Beans.Car;
 import com.wang.lab1.Beans.Motorcycle;
 import com.wang.lab1.Beans.Vehicle;
 

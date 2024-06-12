@@ -1,10 +1,10 @@
-package com.wang.lab1.Builder;// Create a VehicleDirector class that takes a builder and constructs a vehicle.
-
-import com.wang.lab1.Builder.VehicleBuilder;
-import com.wang.lab1.Beans.Car;
-import com.wang.lab1.Beans.Motorcycle;
+package com.wang.lab1.Builder;
 import com.wang.lab1.Beans.Vehicle;
 
+/**
+ * Create a VehicleDirector class that
+ * takes a builder and constructs a vehicle.
+ */
 public class VehicleDirector {
     private VehicleBuilder builder;
 

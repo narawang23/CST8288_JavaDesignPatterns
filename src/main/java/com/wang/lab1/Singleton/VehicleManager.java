@@ -1,7 +1,6 @@
 package com.wang.lab1.Singleton;
 
 import com.wang.lab1.Beans.Vehicle;
-
 import java.util.ArrayList;
 import java.util.List;
 
