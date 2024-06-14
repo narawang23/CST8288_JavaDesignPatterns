@@ -1,17 +1,18 @@
 package com.algonquin.cst8288.assignment2.library;
 
+import com.algonquin.cst8288.assignment2.event.Event;
 import com.algonquin.cst8288.assignment2.event.EventType;
 import com.algonquin.cst8288.assignment2.event.KidsStoryTime;
 import com.algonquin.cst8288.assignment2.event.MovieNight;
 
 public class PublicLibrary extends Library{
     @Override
-    public Object createEvent(EventType eventType){
+    public Event createEvent(EventType eventType){
         switch (eventType){
             case MOVIE_NIGHT:
-                return new MovieNight().toString();
+                return new MovieNight();
             case KIDS_STORY:
-                return new KidsStoryTime().toString();
+                return new KidsStoryTime();
             default:
                 throw new IllegalArgumentException("Unknown event type: " + eventType);
         }
