@@ -2,12 +2,14 @@ package com.algonquin.cst8288.assignment2.event;
 
 import com.algonquin.cst8288.assignment2.database.DBOperations;
 
+import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 public class EventManager {
     private DBOperations dbOperations;
 
-    public EventManager() throws SQLException {
+    public EventManager() throws SQLException, IOException {
         this.dbOperations = new DBOperations();
     }
 
@@ -16,14 +18,30 @@ public class EventManager {
     }
 
     public Event retrieveEvent(int eventId) {
-        return dbOperations.retrieveEvent(eventId);
+        return dbOperations.retrieveEventById(eventId);
     }
 
-    public void updateEvent(Event event) {
-        dbOperations.updateEvent(event);
+    public List<Event> retrieveAllEvents() {
+        return dbOperations.retrieveAllEvents();
     }
 
-    public void deleteEvent(int eventId) {
-        dbOperations.deleteEvent(eventId);
+    public List<Event> retrieveEventsByName(String eventName) {
+        return dbOperations.retrieveEventByName(eventName);
+    }
+
+    public List<Event> retrieveEventsByNameKeyword(String keyword) {
+        return dbOperations.retrieveEventByNameKeyword(keyword);
+    }
+
+    public void updateEventByNameKeyword(Event event, String keyword) {
+        dbOperations.updateEventByNameKeyword(event, keyword);
+    }
+
+    public void deleteEventById(int eventId) {
+        dbOperations.deleteEventById(eventId);
+    }
+
+    public void deleteEventByName(String eventName) {
+        dbOperations.deleteEventByName(eventName);
     }
 }

@@ -15,7 +15,7 @@ public class DBConnection {
 
 	private DBConnection() throws SQLException {
 		try {
-		Class.forName(driverString);
+		Class.forName(driverString);//loads the driver (optional, normally autoloaded)
 		this.connection = DriverManager.getConnection(serverUrl, userString, passwordString);
 	} catch (ClassNotFoundException ex) {
 		System.out.println("Database Connection Creation Failed : " + ex.getMessage());
