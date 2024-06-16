@@ -176,7 +176,7 @@ public class DBOperations {
         }
     }
 
-    public void createEvent(Event event) {
+    public void storeEvent(Event event) {
         String sql = queries.getProperty("createEvent");
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {

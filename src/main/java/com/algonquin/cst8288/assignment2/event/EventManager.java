@@ -19,7 +19,7 @@ public class EventManager {
         this.academicLibrary = new AcademicLibrary();
     }
 
-    public Event createAndStoreEvent(EventType eventType)throws SQLException, IOException {
+    public Event createEvent(EventType eventType){
         Event event = null;
         switch (eventType) {
             case KIDS_STORY:
@@ -36,12 +36,11 @@ public class EventManager {
         if (event == null) {
             throw new IllegalStateException("Failed to create event for type: " + eventType);
         }
-        event.calculateAdmissionFee();
-        dbOperations.createEvent(event);
         return event;
     }
-
-
+        public void storeEvent(Event event){
+            dbOperations.storeEvent(event);
+    };
     public Event retrieveEvent(int eventId) {
         return dbOperations.retrieveEventById(eventId);
     }
