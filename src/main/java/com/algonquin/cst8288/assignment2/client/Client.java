@@ -6,8 +6,6 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
-import static com.algonquin.cst8288.assignment2.event.EventType.*;
-
 public class Client {
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
@@ -107,9 +105,46 @@ public class Client {
 						break;
 					}
 
-					if (eventsToUpdate.isEmpty()) {
+					if (eventsToUpdate == null || eventsToUpdate.isEmpty()) {
 						System.out.println("No events found with the keyword: " + keyword);
 						break;
+					}
+					System.out.println("Events found with the keyword \"" + keyword + "\":");
+					int index = 1;
+					for (Event kwEvent : eventsToUpdate) {
+						System.out.println(index++ + ". ID: " + kwEvent.getEventId() + ", Name: " + kwEvent.getEventName());
+					}
+
+					System.out.println("Enter the ID of the event you want to update:");
+					int eventIdToUpdate = input.nextInt();
+					input.nextLine(); // consume newline
+
+					Event eventToUpdate = null;
+					for (Event newEvent : eventsToUpdate) {
+						if (newEvent.getEventId() == eventIdToUpdate) {
+							eventToUpdate = newEvent;
+							break;
+						}
+					}
+
+					if (eventToUpdate == null) {
+						System.out.println("Invalid event ID entered.");
+						break;
+					}
+
+					System.out.println("Enter the new event name:");
+					String newEventName = input.nextLine();
+					System.out.println("Enter the new event description:");
+					String newEventDescription = input.nextLine();
+
+					eventToUpdate.setEventName(newEventName);
+					eventToUpdate.setEventDescription(newEventDescription);
+
+					try {
+						eventManager.updateEventByNameKeyword(keyword, eventToUpdate);
+						System.out.println("Event successfully updated.");
+					} catch (SQLException e) {
+						System.out.println("Error updating event: " + e.getMessage());
 					}
 					break;
 
