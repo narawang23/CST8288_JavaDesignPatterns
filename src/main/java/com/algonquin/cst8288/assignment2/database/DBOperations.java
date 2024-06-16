@@ -74,7 +74,7 @@ public class DBOperations {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                String eventType = resultSet.getString("event_type"); // Assume event_type column exists
+                String eventType = resultSet.getString("event_type");
                 event = createEventInstance(eventType);
                 event.setEventName(resultSet.getString("event_name"));
                 event.setEventDescription(resultSet.getString("event_description"));
@@ -181,10 +181,10 @@ public class DBOperations {
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, event.getEventName());
-            preparedStatement.setString(2, event.getEventDescription());
-            preparedStatement.setString(3, event.getEventActivities());
-            preparedStatement.setDouble(4, event.getAdmissionFees());
-
+            preparedStatement.setString(2, String.valueOf(event.getEventType()));
+            preparedStatement.setString(3, event.getEventDescription());
+            preparedStatement.setString(4, event.getEventActivities());
+            preparedStatement.setDouble(5, event.getAdmissionFees());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
