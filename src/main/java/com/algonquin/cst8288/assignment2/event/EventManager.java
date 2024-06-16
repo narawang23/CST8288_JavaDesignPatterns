@@ -1,71 +1,70 @@
 package com.algonquin.cst8288.assignment2.event;
 
 import com.algonquin.cst8288.assignment2.database.DBOperations;
-import com.algonquin.cst8288.assignment2.library.AcademicLibrary;
+import com.algonquin.cst8288.assignment2.event.Event;
+import com.algonquin.cst8288.assignment2.event.EventType;
+import com.algonquin.cst8288.assignment2.library.Library;
 import com.algonquin.cst8288.assignment2.library.PublicLibrary;
+import com.algonquin.cst8288.assignment2.library.AcademicLibrary;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
+import static com.algonquin.cst8288.assignment2.event.EventType.KIDS_STORY;
+import static com.algonquin.cst8288.assignment2.event.EventType.MOVIE_NIGHT;
+
 public class EventManager {
-    private DBOperations dbOperations;
     private PublicLibrary publicLibrary;
     private AcademicLibrary academicLibrary;
+    private DBOperations dbOperation;
 
     public EventManager() throws SQLException, IOException {
-        this.dbOperations = new DBOperations();
         this.publicLibrary = new PublicLibrary();
         this.academicLibrary = new AcademicLibrary();
+        this.dbOperation = new DBOperations();
     }
 
-    public Event createEvent(EventType eventType){
-        Event event = null;
+    public void createEvent(EventType eventType) {
         switch (eventType) {
             case KIDS_STORY:
+                Event kidsStoryTime = publicLibrary.createEvent(KIDS_STORY);
+                break;
             case MOVIE_NIGHT:
-                event = publicLibrary.createEvent(eventType);
+                Event movieNight = publicLibrary.createEvent(MOVIE_NIGHT);
                 break;
             case WORKSHOP:
+                Event workshop = academicLibrary.createEvent(EventType.WORKSHOP);
+                break;
             case BOOK_LAUNCH:
-                event = academicLibrary.createEvent(eventType);
+                Event bookLaunch = academicLibrary.createEvent(EventType.BOOK_LAUNCH);
                 break;
             default:
                 throw new IllegalArgumentException("Unknown event type: " + eventType);
         }
-        if (event == null) {
-            throw new IllegalStateException("Failed to create event for type: " + eventType);
-        }
-        return event;
-    }
-        public void storeEvent(Event event){
-            dbOperations.storeEvent(event);
-    };
-    public Event retrieveEvent(int eventId) {
-        return dbOperations.retrieveEventById(eventId);
     }
 
-    public List<Event> retrieveAllEvents() {
-        return dbOperations.retrieveAllEvents();
+    public void storeEvent(Event event) throws SQLException {
+        dbOperation.storeEvent(event);
+
     }
 
-    public List<Event> retrieveEventsByName(String eventName) {
-        return dbOperations.retrieveEventByName(eventName);
+    public List<Event> retrieveAllEvents() throws SQLException {
+        List<Event> allEvents = dbOperation.retrieveAllEvents();
+        return allEvents;
     }
 
-    public List<Event> retrieveEventsByNameKeyword(String keyword) {
-        return dbOperations.retrieveEventByNameKeyword(keyword);
+    public List<Event> retrieveEventByName(String eventName) throws SQLException {
+        List<Event> events = dbOperation.retrieveEventByName(eventName);
+        return events != null ? events : new ArrayList<Event>();
     }
 
-    public void updateEventByNameKeyword(Event event, String keyword) {
-        dbOperations.updateEventByNameKeyword(event, keyword);
+    public void updateEventByNameKeyword(String keyword, Event updatedEvent) throws SQLException {
+        dbOperation.updateEventByNameKeyword(keyword, updatedEvent);
     }
 
-    public void deleteEventById(int eventId) {
-        dbOperations.deleteEventById(eventId);
-    }
-
-    public void deleteEventByName(String eventName) {
-        dbOperations.deleteEventByName(eventName);
+    public void deleteEventById(int eventId) throws SQLException {
+        dbOperation.deleteEventById(eventId);
     }
 }

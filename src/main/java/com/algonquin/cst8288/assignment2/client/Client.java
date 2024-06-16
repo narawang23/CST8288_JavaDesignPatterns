@@ -1,13 +1,12 @@
 package com.algonquin.cst8288.assignment2.client;
 
 import com.algonquin.cst8288.assignment2.event.*;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
-import static com.algonquin.cst8288.assignment2.event.EventType.KIDS_STORY;
+import static com.algonquin.cst8288.assignment2.event.EventType.*;
 
 public class Client {
 	public static void main(String[] args) {
@@ -17,198 +16,130 @@ public class Client {
 		try {
 			eventManager = new EventManager();
 		} catch (SQLException | IOException e) {
-			System.out.println("Error occurred while initializing the EventManager. Exiting...");
+			System.out.println("Error occurred while initializing the EventManager.");
 			return;
 		}
 
-		boolean bool = true;
-		while (bool) {
+		boolean isContinue = true;
+		while (isContinue) {
 			System.out.println("CHOOSE the operation by number:\n 1. Add 2. Remove 3. Update 4. Search\nAny other number: Exit");
 			int choice = input.nextInt();
-			input.nextLine();
+			input.nextLine(); // consume the newline
 
 			switch (choice) {
 				case 1:
-					System.out.println("Enter the event type:\n" +
-							"\tKIDS_STORY,\n" +
-							" \tMOVIE_NIGHT,\n" +
-							" \tWORKSHOP,\n" +
-							"\tBOOK_LAUNCH ");
-
-					String eventType = input.nextLine();
-
-					switch (eventType) {
-						case "KIDS_STORY":
-							KidsStoryTime kidsStoryTime = new KidsStoryTime();
-
-							System.out.println("Enter the event name: ");
-							String eventName = input.nextLine();
-							kidsStoryTime.setEventName(eventName);
-
-							System.out.println("Enter the event description: ");
-							String eventDescription = input.nextLine();
-							kidsStoryTime.setEventDescription(eventDescription);
-
-							System.out.println("Enter the event activities: ");
-							String eventActivities = input.nextLine();
-							kidsStoryTime.setEventActivities(eventActivities);
-							System.out.println("test line one");
-
-							kidsStoryTime.calculateAdmissionFee();
-							System.out.println("test line two");
-
-							kidsStoryTime.setEventType(KIDS_STORY);
-							eventManager.createEvent(KIDS_STORY);
-
-							eventManager.storeEvent(kidsStoryTime);
-
-							System.out.println("test line three");
-							break;
-						case "MOVIE_NIGHT":
-							MovieNight movieNight = new MovieNight();
-							System.out.println("Enter the event name: ");
-							eventName= input.nextLine();
-							movieNight.setEventName(eventName);
-
-							System.out.println("Enter the event description: ");
-							eventDescription = input.nextLine();
-							movieNight.setEventDescription(eventDescription);
-							System.out.println("Enter the event activities: ");
-							eventActivities = input.nextLine();
-							movieNight.setEventActivities(eventActivities);
-
-							movieNight.calculateAdmissionFee();
-							eventManager.storeEvent(movieNight);
-							break;
-						case "WORKSHOP":
-							Workshop workshop2 = new Workshop();
-
-							System.out.println("Enter the event name: ");
-							eventName = input.nextLine();
-							workshop2.setEventName(eventName);
-
-							System.out.println("Enter the event description: ");
-							eventDescription = input.nextLine();
-							workshop2.setEventDescription(eventDescription);
-
-							System.out.println("Enter the event activities: ");
-							eventActivities = input.nextLine();
-							workshop2.setEventActivities(eventActivities);
-							workshop2.calculateAdmissionFee();
-							break;
-						case "BOOK_LAUNCH":
-							BookLaunch bookLaunch2 = new BookLaunch();
-							System.out.println("Enter the event name: ");
-							eventName = input.nextLine();
-							bookLaunch2.setEventName(eventName);
-							System.out.println("Enter the event description: ");
-							eventDescription = input.nextLine();
-							bookLaunch2.setEventDescription(eventDescription);
-							System.out.println("Enter the event activities: ");
-							eventActivities = input.nextLine();
-							bookLaunch2.setEventActivities(eventActivities);
-
-							bookLaunch2.calculateAdmissionFee();
-							break;
-						default:
-							System.out.println("Invalid event type");
-							break;
-					}
-
-				case 2://remove an event based on event ID
-					// Retrieve all events and display them to the user
-					List<Event> allEvents = eventManager.retrieveAllEvents();
-					if (allEvents.isEmpty()) {
-						System.out.println("No events found.");
+					System.out.println("Enter the event type:\nKIDS_STORY\nMOVIE_NIGHT\nWORKSHOP\nBOOK_LAUNCH");
+					String eventTypeStr = input.nextLine();
+					EventType eventType;
+					try {
+						eventType = EventType.valueOf(eventTypeStr);
+					} catch (IllegalArgumentException e) {
+						System.out.println("Invalid event type. Please enter a valid event type.");
 						break;
 					}
-					System.out.println("Available events:");
-					for (Event event : allEvents) {
-						System.out.println("ID: " + event.getEventId() + ", Name: " + event.getEventName());
+
+					System.out.println("Enter the event name: ");
+					String eventName = input.nextLine();
+					System.out.println("Enter the event description: ");
+					String eventDescription = input.nextLine();
+					System.out.println("Enter the event activities: ");
+					String eventActivities = input.nextLine();
+
+					Event event;
+					switch (eventType) {
+						case KIDS_STORY:
+							event = new KidsStoryTime();
+							break;
+						case MOVIE_NIGHT:
+							event = new MovieNight();
+							break;
+						case WORKSHOP:
+							event = new Workshop();
+							break;
+						case BOOK_LAUNCH:
+							event = new BookLaunch();
+							break;
+						default:
+							throw new IllegalArgumentException("Unexpected value: " + eventType);
 					}
 
+					event.setEventName(eventName);
+					event.setEventDescription(eventDescription);
+					event.setEventActivities(eventActivities);
+					event.setEventType(eventType);
+					event.calculateAdmissionFee();
+
+					try {
+						eventManager.storeEvent(event);
+						System.out.println("Event successfully added.");
+					} catch (SQLException e) {
+						System.out.println("Error storing event: " + e.getMessage());
+					}
+					break;
+
+				case 2:
 					System.out.println("Enter the event ID to remove:");
 					int eventIdToRemove = input.nextInt();
-					input.nextLine(); // consume the newline
+					input.nextLine(); // consume newline
+
 					try {
 						eventManager.deleteEventById(eventIdToRemove);
-						System.out.println("Successfully removed the event with ID: " + eventIdToRemove);
-					} catch (Exception e) {
-						System.out.println("Failed to remove event: " + e.getMessage());
+						System.out.println("Event successfully removed.");
+					} catch (SQLException e) {
+						System.out.println("Error removing event: " + e.getMessage());
 					}
-				break;
+					break;
+
 
 				case 3:
-					System.out.println("Enter the keyword to identify the event to update:");
-					String keyword = input.nextLine().trim();
+					System.out.println("Enter the keyword to search for the event to update:");
+					String keyword = input.nextLine();
+					List<Event> eventsToUpdate = null;
 
-					List<Event> eventsToUpdate = eventManager.retrieveEventsByNameKeyword(keyword);
+					try {
+						eventsToUpdate = eventManager.retrieveEventByName(keyword);
+						if (eventsToUpdate == null) {
+							System.out.println("No events found or an error occurred while retrieving events.");
+							break;
+						}
+					} catch (SQLException e) {
+						System.out.println("Error retrieving events: " + e.getMessage());
+						break;
+					}
+
 					if (eventsToUpdate.isEmpty()) {
 						System.out.println("No events found with the keyword: " + keyword);
 						break;
 					}
-					System.out.println("Available events:");
-					for (Event event : eventsToUpdate) {
-						System.out.println("ID: " + event.getEventId()
-								+ ", Name: " + event.getEventName()
-								+ ", EventType: " + event.getEventType()
-								+ ", Description: " + event.getEventDescription()
-								+ "Activities: " + event.getEventActivities()
-								+ "AdmissionFees: " + event.getAdmissionFees());
-					}
-
-					System.out.println("Enter the event ID to update:");
-					int eventIdToUpdate = input.nextInt();
-					input.nextLine(); // consume the newline
-
-					Event eventToUpdate = null;
-					for (Event event : eventsToUpdate) {
-						if (event.getEventId() == eventIdToUpdate) {
-							eventToUpdate = event;
-							break;
-						}
-					}
-
-					if (eventToUpdate == null) {
-						System.out.println("Invalid event ID entered.");
-						break;
-					}
-
-					System.out.println("Enter the new event name:");
-					String newEventName = input.nextLine().trim();
-					eventToUpdate.setEventName(newEventName);
-
-					System.out.println("Enter the new event description:");
-					String newEventDescription = input.nextLine().trim();
-					eventToUpdate.setEventDescription(newEventDescription);
-
-					try {
-						eventManager.updateEventByNameKeyword(eventToUpdate, keyword);
-						System.out.println("Successfully updated the event with ID: " + eventToUpdate.getEventId());
-					} catch (Exception e) {
-						System.out.println("Failed to update event: " + e.getMessage());
-					}
-				break;
+					break;
 
 				case 4:
 					System.out.println("Enter the event name to search for events:");
-					String searchWord = input.nextLine().trim();
+					String searchWord = input.nextLine();
 
-					List<Event> events = eventManager.retrieveEventsByNameKeyword(searchWord);
+					List<Event> events;
+					try {
+						events = eventManager.retrieveEventByName(searchWord);
+					} catch (SQLException e) {
+						System.out.println("Error retrieving events: " + e.getMessage());
+						break;
+					}
+
 					if (events.isEmpty()) {
 						System.out.println("No events found with the keyword: " + searchWord);
 					} else {
-						System.out.println("Events found with the keyword '" + searchWord + "':");
-						for (Event event : events) {
-							System.out.println("ID: " + event.getEventId() + ", Name: " + event.getEventName());
+						System.out.println("Events found:");
+						for (Event foundEvent : events) {
+							System.out.println("ID: " + foundEvent.getEventId() + ", Name: " + foundEvent.getEventName());
 						}
 					}
 					break;
 
-			default:
-			System.out.println("Please choose your operation ONLY NUMBER 1-4 are allowed. Exiting...");
-				bool = false;
-		}
+				default:
+					System.out.println("Exiting...");
+					isContinue = false;
+					break;
+			}
 		}
 	}
 }

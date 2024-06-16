@@ -1,193 +1,130 @@
 package com.algonquin.cst8288.assignment2.database;
 
-import com.algonquin.cst8288.assignment2.event.*;
-import java.sql.*;
-import java.util.*;
-import java.io.*;
+import com.algonquin.cst8288.assignment2.event.Event;
+import com.algonquin.cst8288.assignment2.event.EventType;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
 
 public class DBOperations {
     private Connection connection;
     private Properties queries;
 
-    public DBOperations() throws SQLException, IOException {
-        this.connection = DBConnection.getInstance().getConnection();
-        loadQueries();
+    public DBOperations() {
+        try {
+            this.connection = DBConnection.getInstance().getConnection();
+            this.queries = loadQueries();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    private void loadQueries() throws IOException {
-        queries = new Properties();
+    private Properties loadQueries() {
+        Properties properties = new Properties();
         try (InputStream input = getClass().getClassLoader().getResourceAsStream("queries.properties")) {
-            if (input == null) {
-                System.out.println("Sorry, unable to find queries.properties");
-                return;
-            }
-            queries.load(input);
+            properties.load(input);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return properties;
+    }
+
+    public void storeEvent(Event event) throws SQLException {
+        String storeEventQuery = queries.getProperty("storeEvent");
+        try (PreparedStatement statement = connection.prepareStatement(storeEventQuery)) {
+            statement.setString(1, event.getEventName());
+            statement.setString(2, event.getEventType().toString());
+            statement.setString(3, event.getEventDescription());
+            statement.setString(4, event.getEventActivities());
+            statement.setDouble(5, event.getAdmissionFees());
+            statement.executeUpdate();
         }
     }
 
-    private Event createEventInstance(String eventType) {
-        switch (eventType) {
-            case "MOVIE_NIGHT":
-                return new MovieNight();
-            case "KIDS_STORY":
-                return new KidsStoryTime();
-            case "WORKSHOP":
-                return new Workshop();
-            case "BOOK_LAUNCH":
-                return new BookLaunch();
-            default:
-                throw new IllegalArgumentException("Unknown event type: " + eventType);
-        }
-    }
-
-    public List<Event> retrieveAllEvents() {
-        List<Event> events = new ArrayList<>();
+    public List<Event> retrieveAllEvents() throws SQLException {
         String sql = queries.getProperty("retrieveAllEvents");
-
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql);
-             ResultSet resultSet = preparedStatement.executeQuery()) {
-
+        List<Event> events = new ArrayList<>();
+        try (PreparedStatement statement = connection.prepareStatement(sql);
+             ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
-                String eventType = resultSet.getString("event_type");
-                Event event = createEventInstance(eventType);
-//              event.setEventId(resultSet.getInt("event_id"));
-                event.setEventName(resultSet.getString("event_name"));
-                event.setEventDescription(resultSet.getString("event_description"));
-                event.setEventActivities(resultSet.getString("event_activities"));
-                event.setAdmissionFees(resultSet.getDouble("admission_fees"));
-
+                Event event = mapResultSetToEvent(resultSet);
                 events.add(event);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
-
         return events;
     }
 
-    public Event retrieveEventById(int eventId) {
-        Event event = null;
+    public Event retrieveEventById(int eventId) throws SQLException {
         String sql = queries.getProperty("retrieveEventById");
-
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setInt(1, eventId);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            if (resultSet.next()) {
-                String eventType = resultSet.getString("event_type");
-                event = createEventInstance(eventType);
-                event.setEventName(resultSet.getString("event_name"));
-                event.setEventDescription(resultSet.getString("event_description"));
-                event.setEventActivities(resultSet.getString("event_activities"));
-                event.setAdmissionFees(resultSet.getDouble("admission_fees"));
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, eventId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return mapResultSetToEvent(resultSet);
+                }
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
-
-        return event;
+        return null;
     }
 
-    public List<Event> retrieveEventByName(String eventName) {
-        List<Event> events = new ArrayList<>();
+    public List<Event> retrieveEventByName(String eventNameKeyword) throws SQLException {
         String sql = queries.getProperty("retrieveEventByName");
-
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setString(1, eventName);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                String eventType = resultSet.getString("event_type");
-                Event event = createEventInstance(eventType);
-                event.setEventName(resultSet.getString("event_name"));
-                event.setEventDescription(resultSet.getString("event_description"));
-                event.setEventActivities(resultSet.getString("event_activities"));
-                event.setAdmissionFees(resultSet.getDouble("admission_fees"));
-
-                events.add(event);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return events;
-    }
-
-    public List<Event> retrieveEventByNameKeyword(String keyword) {
         List<Event> events = new ArrayList<>();
-        String sql = queries.getProperty("retrieveEventByNameKeyword");
-
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setString(1, "%" + keyword + "%");
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                String eventType = resultSet.getString("event_type"); // Assume event_type column exists
-                Event event = createEventInstance(eventType);
-                event.setEventName(resultSet.getString("event_name"));
-                event.setEventDescription(resultSet.getString("event_description"));
-                event.setEventActivities(resultSet.getString("event_activities"));
-                event.setAdmissionFees(resultSet.getDouble("admission_fees"));
-
-                events.add(event);
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, "%" + eventNameKeyword + "%");
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Event event = mapResultSetToEvent(resultSet);
+                    events.add(event);
+                }
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
-
         return events;
     }
 
-    public void updateEventByNameKeyword(Event event, String keyword) {
+    public void updateEventByNameKeyword(String eventNameKeyword, Event updatedEvent) throws SQLException {
         String sql = queries.getProperty("updateEventByNameKeyword");
-
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setString(1, event.getEventName());
-            preparedStatement.setString(2, event.getEventDescription());
-            preparedStatement.setString(3, event.getEventActivities());
-            preparedStatement.setDouble(4, event.getAdmissionFees());
-            preparedStatement.setString(5, "%" + keyword + "%");
-
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, updatedEvent.getEventName());
+            statement.setString(2, updatedEvent.getEventType().toString());
+            statement.setString(3, updatedEvent.getEventDescription());
+            statement.setString(4, updatedEvent.getEventActivities());
+            statement.setDouble(5, updatedEvent.getAdmissionFees());
+            statement.setString(6, "%" + eventNameKeyword + "%");
+            statement.executeUpdate();
         }
     }
 
-    public void deleteEventById(int eventId) {
+    public void deleteEventById(int eventId) throws SQLException {
         String sql = queries.getProperty("deleteEventById");
-
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setInt(1, eventId);
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, eventId);
+            statement.executeUpdate();
         }
     }
 
-    public void deleteEventByName(String eventName) {
-        String sql = queries.getProperty("deleteEventByName");
+    private Event mapResultSetToEvent(ResultSet resultSet) throws SQLException {
+        int eventId = resultSet.getInt("event_id");
+        String eventName = resultSet.getString("event_name");
+        String eventTypeStr = resultSet.getString("event_type");
+        EventType eventType = EventType.valueOf(eventTypeStr);
+        String eventDescription = resultSet.getString("event_description");
+        String eventActivities = resultSet.getString("event_activities");
+        double admissionFees = resultSet.getDouble("admission_fees");
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setString(1, eventName);
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+        return new Event(eventId, eventName, eventDescription, eventActivities, admissionFees, eventType) {
+            @Override
+            public void calculateAdmissionFee() {
 
-    public void storeEvent(Event event) {
-        String sql = queries.getProperty("createEvent");
-
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setString(1, event.getEventName());
-            preparedStatement.setString(2, String.valueOf(event.getEventType()));
-            preparedStatement.setString(3, event.getEventDescription());
-            preparedStatement.setString(4, event.getEventActivities());
-            preparedStatement.setDouble(5, event.getAdmissionFees());
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+            }
+        };
     }
 }
+

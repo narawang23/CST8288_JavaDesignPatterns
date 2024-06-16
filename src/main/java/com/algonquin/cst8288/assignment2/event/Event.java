@@ -2,13 +2,30 @@ package com.algonquin.cst8288.assignment2.event;
 
 public abstract class Event {
 	protected int eventId;
-    protected String eventName;
-    protected String eventDescription;
-    protected String eventActivities;
-    protected double admissionFees;
+	protected String eventName;
 	protected EventType eventType;
+	protected String eventDescription;
+	protected String eventActivities;
+	protected double admissionFees;
+
 
 	// Constructor, getters, and setters omitted for brevity
+//	public Event(int eventId, String eventName, String eventType, String eventDescription, String eventActivities, double admissionFees) {
+//	}
+
+	public Event(int eventId, String eventName, String eventDescription, String eventActivities, double admissionFees, EventType eventType) {
+		this.eventId = eventId;
+		this.eventName = eventName;
+		this.eventType = eventType;
+		this.eventDescription = eventDescription;
+		this.eventActivities = eventActivities;
+		this.admissionFees = admissionFees;
+
+	}
+
+	public Event() {
+
+	}
 
 	public EventType getEventType() {
 		return eventType;
@@ -17,10 +34,6 @@ public abstract class Event {
 	public void setEventType(EventType eventType) {
 		this.eventType = eventType;
 	}
-
-    public Event() {
-
-    }
 
 	/**
 	 * @return the eventName
