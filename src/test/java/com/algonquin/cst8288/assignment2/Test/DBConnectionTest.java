@@ -2,6 +2,7 @@ package com.algonquin.cst8288.assignment2.Test;
 
 import com.algonquin.cst8288.assignment2.database.DBConnection;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,12 +22,12 @@ class DBConnectionTest {
 
     @Test
     void testSingletonInstance() {
-        assertEquals(instance1, instance2, "Only one instance should be created");
+        Assertions.assertEquals(instance1, instance2, "Only one instance should be created");
     }
 
     @Test
     void testDatabaseConnection() {
-        assertNotNull(instance1.getConnection(), "Database connection should be established");
+        Assertions.assertNotNull(instance1.getConnection(), "Database connection should be established");
     }
 
     @AfterEach

@@ -1,6 +1,7 @@
 package com.algonquin.cst8288.assignment2.Test;
 
 import com.algonquin.cst8288.assignment2.logger.LMSLogger;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.logging.Level;
@@ -14,7 +15,7 @@ class LMSLoggerTest {
     void testSingletonInstance() {
         LMSLogger instance1 = LMSLogger.getInstance();
         LMSLogger instance2 = LMSLogger.getInstance();
-        assertEquals(instance1, instance2, "Only one instance should be created");
+        Assertions.assertEquals(instance1, instance2, "Only one instance should be created");
     }
 
     @Test
