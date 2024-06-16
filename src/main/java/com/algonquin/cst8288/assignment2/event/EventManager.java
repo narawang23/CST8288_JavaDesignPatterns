@@ -1,9 +1,6 @@
 package com.algonquin.cst8288.assignment2.event;
 
 import com.algonquin.cst8288.assignment2.database.DBOperations;
-import com.algonquin.cst8288.assignment2.event.Event;
-import com.algonquin.cst8288.assignment2.event.EventType;
-import com.algonquin.cst8288.assignment2.library.Library;
 import com.algonquin.cst8288.assignment2.library.PublicLibrary;
 import com.algonquin.cst8288.assignment2.library.AcademicLibrary;
 

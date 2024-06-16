@@ -5,8 +5,18 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
-
+/**
+ * The Client class serves as the main entry point for the application.
+ * It provides a command-line interface for interacting with event management functionalities.
+ * @author wangyanan
+ */
 public class Client {
+	/**
+	 * Main method to execute the event management system.
+	 * Initializes the EventManager and provides a menu-driven interface for the user to perform operations.
+	 *
+	 * @param args Command-line arguments (not used).
+	 */
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
 		EventManager eventManager;
